@@ -35,6 +35,8 @@ add_library(orbital_bullseye_core
   core/relative_predictor.cpp
   core/time_grid.cpp
   core/vehicle_index_map.cpp
+  core/logging.cpp
+  core/dummy_predictor.cpp
 )
 
 target_include_directories(orbital_bullseye_core

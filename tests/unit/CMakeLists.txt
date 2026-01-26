@@ -1,19 +1,25 @@
-# tests/unit/CMakeLists.txt (raw snippet)
-add_executable(test_contracts_smoke
-  test_contracts_smoke.cpp
+# tests/unit/CMakeLists.txt
+
+set(UNIT_TEST_SOURCES
+    test_contracts_smoke.cpp
+    test_time_grid.cpp
+    test_prediction_buffer.cpp
+    test_vehicle_index_map.cpp
+    test_publisher.cpp
+    test_dummy_predictor.cpp
 )
 
-target_include_directories(test_contracts_smoke PRIVATE
-  ${CMAKE_SOURCE_DIR}
+add_executable(orbital_bullseye_unit_tests
+    ${UNIT_TEST_SOURCES}
 )
 
-target_link_libraries(test_contracts_smoke PRIVATE
-  Catch2::Catch2WithMain
-  sim_logger::sim_logger
+target_link_libraries(orbital_bullseye_unit_tests
+    PRIVATE
+        Catch2::Catch2WithMain
+        orbital_bullseye_core
 )
 
-# Catch2 v3 provides this module when you add_subdirectory(Catch2)
+include(CTest)
 include(Catch)
-catch_discover_tests(test_contracts_smoke)
 
-
+catch_discover_tests(orbital_bullseye_unit_tests)
