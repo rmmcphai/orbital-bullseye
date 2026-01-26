@@ -1,0 +1,6 @@
+[submodule "external/catch2"]
+	path = external/catch2
+	url = https://github.com/catchorg/Catch2.git
+[submodule "external/sim-logger"]
+	path = external/sim-logger
+	url = git@github.com:rmmcphai/sim-logger.git
