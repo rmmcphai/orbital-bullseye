@@ -7,6 +7,9 @@ set(UNIT_TEST_SOURCES
     test_vehicle_index_map.cpp
     test_publisher.cpp
     test_dummy_predictor.cpp
+    test_providers.cpp
+    test_frame_providers.cpp
+    test_frame_validator.cpp
 )
 
 add_executable(orbital_bullseye_unit_tests
