@@ -3,4 +3,4 @@
 	url = https://github.com/catchorg/Catch2.git
 [submodule "external/sim-logger"]
 	path = external/sim-logger
-	url = git@github.com:rmmcphai/sim-logger.git
+	url = https://github.com/rmmcphai/sim-logger.git

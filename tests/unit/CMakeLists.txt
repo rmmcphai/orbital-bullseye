@@ -10,6 +10,9 @@ set(UNIT_TEST_SOURCES
     test_providers.cpp
     test_frame_providers.cpp
     test_frame_validator.cpp
+    test_bullseye_frame.cpp
+    test_transforms.cpp
+    test_bullseye_math.cpp
 )
 
 add_executable(orbital_bullseye_unit_tests
