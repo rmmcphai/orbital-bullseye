@@ -16,23 +16,25 @@
 
 #include "core/types.hpp"
 
-namespace bullseye_pred {
+namespace bullseye_pred
+{
 
-class IChiefStateProvider {
- public:
-  virtual ~IChiefStateProvider() = default;
+class IChiefStateProvider
+{
+  public:
+    virtual ~IChiefStateProvider() = default;
 
-  /**
-   * @brief Get chief state for exactly the requested tick time t0.
-   *
-   * @param t0 Requested predictor tick time (seconds).
-   * @return ChiefState with `status.ok()==true` iff a valid state for exactly t0 is available.
-   *
-   * Requirements:
-   * - On success: `state.time_tag == t0` (exact match) and `state.frame_id != nullptr`.
-   * - On failure: `status.code != kOk` and payload fields may be left unspecified.
-   */
-  [[nodiscard]] virtual ChiefState get(double t0) noexcept = 0;
+    /**
+     * @brief Get chief state for exactly the requested tick time t0.
+     *
+     * @param t0 Requested predictor tick time (seconds).
+     * @return ChiefState with `status.ok()==true` iff a valid state for exactly t0 is available.
+     *
+     * Requirements:
+     * - On success: `state.time_tag == t0` (exact match) and `state.frame_id != nullptr`.
+     * - On failure: `status.code != kOk` and payload fields may be left unspecified.
+     */
+    [[nodiscard]] virtual ChiefState get(double t0) noexcept = 0;
 };
 
-}  // namespace bullseye_pred
+} // namespace bullseye_pred

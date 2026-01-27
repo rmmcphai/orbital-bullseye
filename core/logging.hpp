@@ -7,11 +7,13 @@
 
 #include "logger/level.hpp"
 
-namespace sim_logger {
+namespace sim_logger
+{
 class Logger;
 } // namespace sim_logger
 
-namespace bullseye::logging {
+namespace bullseye_pred::logging
+{
 
 /**
  * @brief Logging configuration for Bullseye.
@@ -20,18 +22,19 @@ namespace bullseye::logging {
  * This is intentionally small and stable. You can extend later (env config, JSON, etc.)
  * without touching call sites.
  */
-struct Config {
-  /// Default log level applied to the root logger.
-  sim_logger::Level level;
+struct Config
+{
+    /// Default log level applied to the root logger.
+    sim_logger::Level level;
 
-  /// Whether to flush immediately after each record (useful during development).
-  bool immediate_flush{false};
+    /// Whether to flush immediately after each record (useful during development).
+    bool immediate_flush{false};
 
-  /// If non-empty, also log to this file (in addition to console).
-  std::string file_path{};
+    /// If non-empty, also log to this file (in addition to console).
+    std::string file_path{};
 
-  /// Log line format (sim-logger PatternFormatter syntax).
-  std::string pattern{"{met} {level} {logger} {msg}"};
+    /// Log line format (sim-logger PatternFormatter syntax).
+    std::string pattern{"{met} {level} {logger} {msg}"};
 };
 
 /**
@@ -51,4 +54,4 @@ void init(const Config& cfg);
  */
 std::shared_ptr<sim_logger::Logger> get(std::string_view component);
 
-} // namespace bullseye::logging
+} // namespace bullseye_pred::logging

@@ -1,0 +1,15 @@
+# Orbital Bullseye formatting (v1)
+BasedOnStyle: LLVM
+IndentWidth: 4
+TabWidth: 4
+UseTab: Never
+ColumnLimit: 100
+BreakBeforeBraces: Allman
+AllowShortFunctionsOnASingleLine: Empty
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortLoopsOnASingleLine: false
+PointerAlignment: Left
+DerivePointerAlignment: false
+SpacesInParentheses: false
+SpaceBeforeParens: ControlStatements
+SortIncludes: false

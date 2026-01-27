@@ -1,7 +1,8 @@
 #pragma once
 /**
  * @file time_grid.hpp
- * @brief Utilities for generating a discrete set of prediction times relative to a reference epoch t0.
+ * @brief Utilities for generating a discrete set of prediction times relative to a reference epoch
+ * t0.
  *
  * @details
  * This module provides a simple, deterministic time grid generator used by predictors and buffers.
@@ -21,7 +22,8 @@
 
 #include <vector>
 
-namespace bullseye {
+namespace bullseye_pred
+{
 
 /**
  * @brief Discrete sampling schedule expressed as offsets from t0.
@@ -37,9 +39,10 @@ namespace bullseye {
  * Using offsets (rather than absolute times) avoids accidental dependence on time systems
  * and makes tests simpler and more deterministic.
  */
-struct TimeGrid {
-  /// Offsets (seconds) from epoch t0. The first element is always 0.0 for valid inputs.
-  std::vector<double> tau;
+struct TimeGrid
+{
+    /// Offsets (seconds) from epoch t0. The first element is always 0.0 for valid inputs.
+    std::vector<double> tau;
 };
 
 /**
@@ -68,4 +71,4 @@ struct TimeGrid {
  */
 TimeGrid make_time_grid(double horizon_sec, double cadence_sec);
 
-} // nam
+} // namespace bullseye_pred

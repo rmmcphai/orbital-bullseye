@@ -17,37 +17,42 @@
  */
 
 #include "core/types.hpp"
+#include "core/contracts.hpp"
 
-namespace bullseye_pred {
+namespace bullseye_pred
+{
 
-struct FrameValidationTolerances final {
-  // Centering check: ||origin_i - chief.r_i|| <= abs + rel*||chief.r_i||
-  double center_abs_m{1e-6};
-  double center_rel{1e-12};
+struct FrameValidationTolerances final
+{
+    // Centering check: ||origin_i - chief.r_i|| <= abs + rel*||chief.r_i||
+    double center_abs_m{contracts::Tol::kAdoptedCentering_m.abs};
+    double center_rel{contracts::Tol::kAdoptedCentering_m.rel};
 
-  // Orthonormality check uses max-abs element of (C*C^T - I).
-  double ortho_max_abs{1e-12};
+    // Orthonormality check uses max-abs element of (C*C^T - I).
+    double ortho_max_abs{contracts::Tol::kDcmOrthonormality};
 
-  // Handedness check: |det(C) - 1| <= det_one_abs
-  double det_one_abs{1e-12};
+    // Handedness check: |det(C) - 1| <= det_one_abs
+    double det_one_abs{contracts::Tol::kDeterminantOne};
 };
 
-enum class FrameValidationReason : std::uint8_t {
-  kOk = 0,
-  kChiefNotOk,
-  kFrameNotOk,
-  kTimeMismatch,
-  kBadDeclaration,
-  kCenteringMismatch,
-  kNotOrthonormal,
-  kNotRightHanded,
-  kOmegaBadDeclaration,
-  kNonFinite,
+enum class FrameValidationReason : std::uint8_t
+{
+    kOk = 0,
+    kChiefNotOk,
+    kFrameNotOk,
+    kTimeMismatch,
+    kBadDeclaration,
+    kCenteringMismatch,
+    kNotOrthonormal,
+    kNotRightHanded,
+    kOmegaBadDeclaration,
+    kNonFinite,
 };
 
-struct FrameValidationResult final {
-  ProviderStatus status{};
-  FrameValidationReason reason{FrameValidationReason::kOk};
+struct FrameValidationResult final
+{
+    ProviderStatus status{};
+    FrameValidationReason reason{FrameValidationReason::kOk};
 };
 
 /**
@@ -63,10 +68,9 @@ struct FrameValidationResult final {
  * - right-handedness: |det(C) - 1| <= det_one_abs
  * - ω declaration: if has_omega, omega_coords must be kOmegaRIC and finite
  */
-[[nodiscard]] FrameValidationResult validate_adopted_bullseye_ric_frame(
-    double t0,
-    const ChiefState& chief,
-    const AdoptedRicFrame& frame,
-    const FrameValidationTolerances& tol) noexcept;
+[[nodiscard]] FrameValidationResult
+validate_adopted_bullseye_ric_frame(double t0, const ChiefState& chief,
+                                    const AdoptedRicFrame& frame,
+                                    const FrameValidationTolerances& tol) noexcept;
 
-}  // namespace bullseye_pred
+} // namespace bullseye_pred

@@ -23,26 +23,30 @@
 
 #include "core/types.hpp"
 
-namespace bullseye_pred {
+namespace bullseye_pred
+{
 
-class IBullseyeFrameProvider {
- public:
-  virtual ~IBullseyeFrameProvider() = default;
+class IBullseyeFrameProvider
+{
+  public:
+    virtual ~IBullseyeFrameProvider() = default;
 
-  /**
-   * @brief Get adopted RIC frame for exactly the requested tick time t0.
-   *
-   * @param t0 Requested predictor tick time (seconds).
-   * @return AdoptedRicFrame with `status.ok()==true` iff a valid frame for exactly t0 is available.
-   *
-   * Requirements:
-   * - On success: `frame.time_tag == t0` (exact match), `frame.frame_kind == kBullseyeRIC`,
-   *   `frame.axis_order == kRIC`, and `C_from_ric_to_inertial` is right-handed & orthonormal
-   *   within tolerances (checked by validator).
-   * - If `has_omega==true`, then `omega_coords` must be explicitly declared (v1 expects kOmegaRIC).
-   * - On failure: `status.code != kOk` and payload fields may be left unspecified.
-   */
-  [[nodiscard]] virtual AdoptedRicFrame get(double t0) noexcept = 0;
+    /**
+     * @brief Get adopted RIC frame for exactly the requested tick time t0.
+     *
+     * @param t0 Requested predictor tick time (seconds).
+     * @return AdoptedRicFrame with `status.ok()==true` iff a valid frame for exactly t0 is
+     * available.
+     *
+     * Requirements:
+     * - On success: `frame.time_tag == t0` (exact match), `frame.frame_kind == kBullseyeRIC`,
+     *   `frame.axis_order == kRIC`, and `C_from_ric_to_inertial` is right-handed & orthonormal
+     *   within tolerances (checked by validator).
+     * - If `has_omega==true`, then `omega_coords` must be explicitly declared (v1 expects
+     * kOmegaRIC).
+     * - On failure: `status.code != kOk` and payload fields may be left unspecified.
+     */
+    [[nodiscard]] virtual AdoptedRicFrame get(double t0) noexcept = 0;
 };
 
-}  // namespace bullseye_pred
+} // namespace bullseye_pred
