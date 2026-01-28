@@ -13,6 +13,7 @@ set(UNIT_TEST_SOURCES
     test_bullseye_frame.cpp
     test_transforms.cpp
     test_bullseye_math.cpp
+    test_hcw_model.cpp
 )
 
 add_executable(orbital_bullseye_unit_tests
@@ -23,6 +24,7 @@ target_link_libraries(orbital_bullseye_unit_tests
     PRIVATE
         Catch2::Catch2WithMain
         orbital_bullseye_core
+        orbital_bullseye_models
 )
 
 include(CTest)
