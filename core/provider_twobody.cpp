@@ -3,6 +3,7 @@
 
 #include "core/log_names.hpp"
 #include "core/logging.hpp"
+#include "core/math/stumpff.hpp"
 #include "logger/log_macros.hpp"
 
 #include <cmath>
@@ -10,64 +11,13 @@
 
 namespace bullseye_pred
 {
-namespace
-{
-
-// Stumpff functions C(z), S(z) with small-|z| series for numerical stability.
-// These are deterministic (no branching on convergence), only on |z| threshold.
-
-// Stumpff C(z) = (1 - cos(sqrt(z))) / z  for z > 0
-//              = (1 - cosh(sqrt(-z))) / z for z < 0
-//              = 1/2 - z/24 + z^2/720 - z^3/40320 + ... for z ~ 0
-// Used to ensure numerical stability for small |z|.
-inline double stumpff_C(double z) noexcept
-{
-    const double az = std::fabs(z);
-    if (az < 1e-8)
-    {
-        // C(z) = 1/2 - z/24 + z^2/720 - z^3/40320 + ...
-        const double z2 = z * z;
-        return 0.5 - z / 24.0 + z2 / 720.0 - (z2 * z) / 40320.0;
-    }
-    if (z > 0.0)
-    {
-        const double s = std::sqrt(z);
-        return (1.0 - std::cos(s)) / z;
-    }
-    // z < 0
-    const double s = std::sqrt(-z);
-    return (1.0 - std::cosh(s)) / z; // z negative -> positive result
-}
-
-// Stumpff S(z) = (sqrt(z) - sin(sqrt(z))) / (sqrt(z))^3  for z > 0
-//              = (sinh(sqrt(-z)) - sqrt(-z)) / (sqrt(-z))^3 for z < 0
-//              = 1/6 - z/120 + z^2/5040 - z^3/362880 + ... for z ~ 0
-// Used to ensure numerical stability for small |z|.
-inline double stumpff_S(double z) noexcept
-{
-    const double az = std::fabs(z);
-    if (az < 1e-8)
-    {
-        // S(z) = 1/6 - z/120 + z^2/5040 - z^3/362880 + ...
-        const double z2 = z * z;
-        return (1.0 / 6.0) - z / 120.0 + z2 / 5040.0 - (z2 * z) / 362880.0;
-    }
-    if (z > 0.0)
-    {
-        const double s = std::sqrt(z);
-        return (s - std::sin(s)) / (s * s * s);
-    }
-    // z < 0
-    const double s = std::sqrt(-z);
-    return (std::sinh(s) - s) / (s * s * s);
-}
+using math::stumpff_C;
+using math::stumpff_S;
 
 inline bool is_finite_vec(const Vec3& v) noexcept
 {
     return std::isfinite(v.x) && std::isfinite(v.y) && std::isfinite(v.z);
 }
-
-} // namespace
 
 TwoBodyChiefProvider::TwoBodyChiefProvider(const char* inertial_frame_id, double mu, double t_epoch,
                                            const Vec3& r_epoch_i, const Vec3& v_epoch_i)

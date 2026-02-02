@@ -14,6 +14,7 @@ set(UNIT_TEST_SOURCES
     test_transforms.cpp
     test_bullseye_math.cpp
     test_hcw_model.cpp
+    test_ya_model.cpp
 )
 
 add_executable(orbital_bullseye_unit_tests
